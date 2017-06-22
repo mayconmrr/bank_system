@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  agency_number: 
+  account_number: 
+  status: false
+  user: one
+
+two:
+  agency_number: 
+  account_number: 
+  status: false
+  user: two
