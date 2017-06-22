@@ -7,7 +7,7 @@ class Account < ApplicationRecord
   def account_number_gen
     account = Random.new
     digit = Random.new
-    new_count_id = (account.rand(1111..9999)).to_s + "-" + (digit.rand(1..9)).to_s
+    new_count_id = (account.rand(1111..99999)).to_s + "-" + (digit.rand(1..9)).to_s
     self.account_number = new_count_id 
   end
   
@@ -20,7 +20,6 @@ class Account < ApplicationRecord
   def init_balance
   	balance = Balance.create(:account_id => self.id)
   	balance.save!
-  end
-
+  end 
 
 end

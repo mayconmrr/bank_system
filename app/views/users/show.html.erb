@@ -1,4 +1,6 @@
 <p id="notice"><%= notice %></p>
+<h1> Seja bem-vindo <%= @user.name %></h1>
+
 
 <p>
   <strong>Name:</strong>
@@ -11,14 +13,21 @@
 </p>
 
 <p>
-  <strong>Gender:</strong>
-  <%= @user.gender %>
+  <strong>Número da Conta:</strong>
+  <%= @user.account.agency_number %>
 </p>
 
 <p>
-  <strong>Password:</strong>
-  <%= @user.password %>
+  <strong>Número da Conta:</strong>
+  <%= @user.account.account_number %>
 </p>
+
+
+<p>
+  <strong>Saldo da Conta:</strong>
+  <%= @user.account.balance.balance %>
+</p>
+ 
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

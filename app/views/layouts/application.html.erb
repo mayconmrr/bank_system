@@ -14,21 +14,7 @@
 
     <ul class="nav navbar-nav pull-right">
 
-      <% if logged_in? %>
-      
-        <li class="nav-item btn-group" data-behavior="notifications" data-notifications='<%= render template: "notifications/index", formats: [:json] %>'>
-          <a class="dropdown-toggle nav-link" type="button" data-behavior="notifications-link" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= fa_icon "bell" %> <span data-behavior="unread-count"></span>
-            </a>
-          
-          <div class="dropdown-menu" aria-labelledby="dropdownMenu1" data-behavior="notification-items">
-          <!--
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-           --> 
-          </div>
-        </li>
+      <% if logged_in? %> 
         <li class="nav-item"><%= link_to "Usuários", users_path, class: "nav-link" %></li>
         <li class="nav-item"><%= link_to "Meu Perfil", '#' %></li>
         <li class="nav-item"><%= link_to "Meus Dados", edit_user_path(current_user) %></li>
