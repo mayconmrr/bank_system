@@ -61,6 +61,20 @@ class AccountsController < ApplicationController
     end
   end
 
+  def deposit
+    account = Account.find(params[:id])
+    return head :not_found unless account
+    if Account.deposit(account, amount)
+      redirect_to account_path(current_user)
+      flash[:success] = 'Depósito efetuado com sucesso!'
+    else 
+      flash[:danger] = 'Valor digitado não é válido. Depósito negado.'
+      redirect_to account_path(current_user)
+    end
+    
+    #render json: {deposited: true}
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_account
@@ -71,4 +85,10 @@ class AccountsController < ApplicationController
     def account_params
       params.require(:account).permit(:agency_number, :account_number, :status, :user_id)
     end
+
+    def amount
+      param = params.permit(:amount)
+      param[:amount].to_f
+    end
+
 end

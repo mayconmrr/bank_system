@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       log_in user
       puts user
-      redirect_to user_path(user.id) 
+      redirect_to account_path(user)
       flash[:success] = 'Login efetuado com sucesso!'
     else
       flash.now[:danger] = 'Email e/ou senha incorreto, por favor tente novamente.'

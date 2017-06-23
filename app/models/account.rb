@@ -1,8 +1,6 @@
 class Account < ApplicationRecord
-  belongs_to :user
-  has_one :balance 
-  before_create :account_number_gen, :agency_number_gen
-  after_create :init_balance 
+  belongs_to :user 
+  before_create :account_number_gen, :agency_number_gen 
  
   def account_number_gen
     account = Random.new
@@ -15,11 +13,21 @@ class Account < ApplicationRecord
     agency = Random.new 
     new_ag_id = (agency.rand(0001..9999)).to_s 
     self.agency_number = new_ag_id 
-  end
-
-  def init_balance
-  	balance = Balance.create(:account_id => self.id)
-  	balance.save!
   end 
 
+  def self.deposit(account, amount)
+    puts "Depositing #{amount} on account #{account.id}"
+    return false unless self.amount_valid?(amount)
+    account.balance = (account.balance += amount).round(2)
+    account.save!
+  end
+
+  private
+  def self.amount_valid?(amount)
+    if amount <= 0
+      puts 'Transaction failed! Amount must be greater than 0.00'
+      return false
+    end
+    return true
+  end
 end

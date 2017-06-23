@@ -15,19 +15,12 @@ ActiveRecord::Schema.define(version: 20170621153404) do
   create_table "accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "agency_number"
     t.integer "account_number"
+    t.float "balance", limit: 24, default: 0.0
     t.boolean "status", default: false
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_accounts_on_user_id"
-  end
-
-  create_table "balances", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.float "balance", limit: 24, default: 0.0
-    t.bigint "account_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_balances_on_account_id"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -41,5 +34,4 @@ ActiveRecord::Schema.define(version: 20170621153404) do
   end
 
   add_foreign_key "accounts", "users"
-  add_foreign_key "balances", "accounts"
 end

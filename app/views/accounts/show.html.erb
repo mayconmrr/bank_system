@@ -1,12 +1,22 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Agency number:</strong>
+  <strong>User:</strong>
+  <%= @account.user.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @account.user.email %>
+</p>
+ 
+<p>
+  <strong>Número da Agência:</strong>
   <%= @account.agency_number %>
 </p>
 
 <p>
-  <strong>Account number:</strong>
+  <strong>Número da Conta:</strong>
   <%= @account.account_number %>
 </p>
 
@@ -16,9 +26,10 @@
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @account.user %>
+  <strong>Saldo Atual:</strong>
+  <%= @account.balance %>
 </p>
 
-<%= link_to 'Edit', edit_account_path(@account) %> |
-<%= link_to 'Back', accounts_path %>
+
+<%= link_to 'Edit', edit_account_path(@account) %>
+<%= render 'accounts/deposit' %>

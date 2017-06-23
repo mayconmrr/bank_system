@@ -7,9 +7,13 @@ Rails.application.routes.draw do
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
 
-  resources :balances
-  resources :accounts
   resources :users 
+ 
+  resources :accounts do
+  	member do
+  		post :deposit
+  	end
+  end
 
   root 'static_pages#home' 
 

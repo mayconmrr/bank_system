@@ -10,13 +10,15 @@
   <body> 
    
    <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
-    <span class='nav navbar-brand logo'><%= link_to "Banco GRP", root_path, class: "nav-link" %></span> 
-
+     <% unless logged_in? %>  
+       <span class='nav navbar-brand logo'><%= link_to "Banco GRP", root_path, class: "nav-link" %></span> 
+     <% else %>
+       <span class='nav navbar-brand logo'><%= link_to "Banco GRP", user_path(current_user), class: "nav-link" %></span> 
+     <% end %>
     <ul class="nav navbar-nav pull-right">
 
-      <% if logged_in? %> 
-        <li class="nav-item"><%= link_to "Usuários", users_path, class: "nav-link" %></li>
-        <li class="nav-item"><%= link_to "Meu Perfil", '#' %></li>
+      <% if logged_in? %>  
+        <li class="nav-item"><%= link_to "Minha Conta", account_path(current_user) %></li>
         <li class="nav-item"><%= link_to "Meus Dados", edit_user_path(current_user) %></li>
         <li class="nav-item"><%= link_to "Sair", logout_path, method: "delete" %></li> 
       <% else %>
