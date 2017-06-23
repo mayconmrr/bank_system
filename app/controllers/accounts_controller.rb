@@ -70,9 +70,19 @@ class AccountsController < ApplicationController
     else 
       flash[:danger] = 'Valor digitado não é válido. Depósito negado.'
       redirect_to account_path(current_user)
+    end  
+  end
+
+  def withdraw
+    account = Account.find(params[:id])
+    return head :not_found unless account 
+    if Account.withdraw(account, amount)
+      redirect_to account_path(current_user)
+      flash[:success] = 'Saque efetuado com sucesso'
+    else
+      flash[:danger] = 'Saldo insuficiente para a operação.'
+      redirect_to account_path(current_user)
     end
-    
-    #render json: {deposited: true}
   end
   
   private

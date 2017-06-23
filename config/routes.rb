@@ -11,7 +11,8 @@ Rails.application.routes.draw do
  
   resources :accounts do
   	member do
-  		post :deposit
+      post :deposit 
+      post :withdraw
   	end
   end
 

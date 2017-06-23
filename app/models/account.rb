@@ -22,12 +22,26 @@ class Account < ApplicationRecord
     account.save!
   end
 
+  def self.withdraw(account, amount)
+    puts "Withdrawing #{amount} on account #{account.id}"
+    return false unless self.amount_valid?(amount)
+    #return false unless self.balance_valid?(amount)
+    account.balance = (account.balance -= amount).round(2)
+    if account.balance > 0
+      account.save!
+    else
+      puts "Saldo insuficiente para operação."
+    end
+  end
+
   private
+
   def self.amount_valid?(amount)
     if amount <= 0
-      puts 'Transaction failed! Amount must be greater than 0.00'
+      puts 'Depósito deve ser maior que 0.'
       return false
     end
     return true
-  end
+  end 
+
 end

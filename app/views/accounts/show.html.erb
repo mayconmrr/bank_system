@@ -19,17 +19,32 @@
   <strong>Número da Conta:</strong>
   <%= @account.account_number %>
 </p>
-
+  
 <p>
   <strong>Status:</strong>
   <%= @account.status %>
 </p>
 
 <p>
-  <strong>Saldo Atual:</strong>
+  <strong>Saldo atual:</strong>
   <%= @account.balance %>
 </p>
 
+<div class="well"> 
+  <div class="text-left">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#depositModal">Depositar</button> 
+      <%= render 'accounts/deposit' %> 
+    </form>
+  </div>
+</div>
 
-<%= link_to 'Edit', edit_account_path(@account) %>
-<%= render 'accounts/deposit' %>
+<div class="well"> 
+  <div class="text-left">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#withdrawModal">Sacar</button> 
+      <%= render 'accounts/withdraw' %> 
+    </form>
+  </div> 
+</div> 
+   
+
+<%= link_to 'Edit', edit_account_path(@account) %> 
