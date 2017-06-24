@@ -34,6 +34,15 @@ class Account < ApplicationRecord
     end
   end
 
+  def self.transfer(account, recipient, amount)
+    puts "Transfering #{amount} from account #{account.id} to account #{recipient.id}"
+    return false unless self.amount_valid?(amount)
+    ActiveRecord::Base.transaction do
+      self.withdraw(account, amount)
+      self.deposit(recipient, amount)
+    end
+  end
+
   private
 
   def self.amount_valid?(amount)

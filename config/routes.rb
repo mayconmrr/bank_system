@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   	member do
       post :deposit 
       post :withdraw
+      post :transfer
   	end
   end
 

@@ -85,6 +85,19 @@ class AccountsController < ApplicationController
     end
   end
   
+
+  def transfer
+    account = Account.find(params[:id])
+    return head :not_found unless account
+
+    recipient_param = params.permit(:recipient_id)
+    recipient = Account.find(recipient_param[:recipient_id])
+    return head :not_found unless recipient
+
+    return head :unprocessable_entity unless Account.transfer(account, recipient, amount)
+    render json: {transfered: true}
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_account
