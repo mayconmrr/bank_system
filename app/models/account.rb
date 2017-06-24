@@ -30,7 +30,8 @@ class Account < ApplicationRecord
     if account.balance > 0
       account.save!
     else
-      puts "Saldo insuficiente para operação."
+      puts "Saldo insuficiente"
+      return false
     end
   end
 
@@ -38,8 +39,9 @@ class Account < ApplicationRecord
     puts "Transfering #{amount} from account #{account.id} to account #{recipient.id}"
     return false unless self.amount_valid?(amount)
     ActiveRecord::Base.transaction do
-      self.withdraw(account, amount)
-      self.deposit(recipient, amount)
+      if self.withdraw(account, amount)
+        self.deposit(recipient, amount)
+      end
     end
   end
 

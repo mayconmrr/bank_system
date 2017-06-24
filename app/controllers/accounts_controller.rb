@@ -91,12 +91,23 @@ class AccountsController < ApplicationController
     return head :not_found unless account
 
     recipient_param = params.permit(:recipient_id)
-    recipient = Account.find(recipient_param[:recipient_id])
-    return head :not_found unless recipient
-
-    return head :unprocessable_entity unless Account.transfer(account, recipient, amount)
-    render json: {transfered: true}
+    recipient = Account.find_by_id(recipient_param[:recipient_id]) 
+    
+    if recipient.nil?
+      puts "entrou"
+      flash[:danger] = 'Não foi possível localizar a conta informada. Favor reveja os dados informados'
+      redirect_to account_path(current_user)
+    else 
+      if Account.transfer(account, recipient, amount)
+        redirect_to account_path(current_user) 
+        flash[:success] = 'Transferência efetuada com sucesso'
+      else
+        flash[:danger] = 'Saldo insuficiente para a operação.'
+        redirect_to account_path(current_user) 
+      end
+    end
   end
+
   
   private
     # Use callbacks to share common setup or constraints between actions.
