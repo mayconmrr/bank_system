@@ -1,3 +1,4 @@
+<% if logged_in? %>
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -33,7 +34,7 @@
 <div class="well"> 
   <div class="text-left">
     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#balanceModal">Mostrar saldo</button> 
-      <%= render 'accounts/balance' %> 
+      <%= render 'shared/balance' %> 
     </form>
   </div>
 </div>
@@ -41,7 +42,7 @@
 <div class="well"> 
   <div class="text-left">
     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#depositModal">Depositar</button> 
-      <%= render 'accounts/deposit' %> 
+      <%= render 'shared/deposit' %> 
     </form>
   </div>
 </div>
@@ -49,7 +50,7 @@
 <div class="well"> 
   <div class="text-left">
     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#withdrawModal">Sacar</button> 
-      <%= render 'accounts/withdraw' %> 
+      <%= render 'shared/withdraw' %> 
     </form>
   </div> 
 </div> 
@@ -57,7 +58,11 @@
 <div class="well"> 
   <div class="text-left">
     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#transferModal">Transferir</button> 
-      <%= render 'accounts/transfer' %> 
+      <%= render 'shared/transfer' %> 
     </form>
   </div> 
 </div> 
+
+<% else %> 
+    <h1>Acesso Negado</h1> 
+<% end %>

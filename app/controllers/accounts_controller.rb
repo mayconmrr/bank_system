@@ -1,16 +1,13 @@
 class AccountsController < ApplicationController
-  before_action :set_account, only: [:show, :edit, :update, :destroy]
-
-  # GET /accounts
-  # GET /accounts.json
-  def index
-    @accounts = Account.all
-  end
-
+  before_action :set_account, only: [:show, :edit, :update, :destroy] 
+  before_action :logged_in_user, except: [:new, :create]
+  before_action :correct_account, only: [:show, :edit, :update]
+ 
   # GET /accounts/1
   # GET /accounts/1.json
-  def show
-  end
+  def show  
+    @account = Account.find(params[:id])  
+  end 
 
   # GET /accounts/new
   def new
@@ -20,7 +17,6 @@ class AccountsController < ApplicationController
   # GET /accounts/1/edit
   def edit
   end
-
   # POST /accounts
   # POST /accounts.json
   def create
@@ -123,6 +119,11 @@ class AccountsController < ApplicationController
     def amount
       param = params.permit(:amount)
       param[:amount].to_f
+    end
+
+    def correct_account
+      @account = Account.find(params[:id])
+      redirect_to(root_url) unless current_user?(@account.user)
     end
 
 end
