@@ -32,6 +32,14 @@
 
 <div class="well"> 
   <div class="text-left">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#balanceModal">Mostrar saldo</button> 
+      <%= render 'accounts/balance' %> 
+    </form>
+  </div>
+</div>
+
+<div class="well"> 
+  <div class="text-left">
     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#depositModal">Depositar</button> 
       <%= render 'accounts/deposit' %> 
     </form>
