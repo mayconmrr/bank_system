@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       post :deposit 
       post :withdraw
       post :transfer
+      post :close_account
   	end
   end
 

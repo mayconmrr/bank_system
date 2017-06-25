@@ -45,6 +45,12 @@ class Account < ApplicationRecord
     end
   end
 
+  def self.close_account(account)
+    account.status = 1
+    account.save!
+  end
+
+
   private
 
   def self.amount_valid?(amount)

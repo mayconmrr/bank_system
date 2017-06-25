@@ -55,7 +55,7 @@ class AccountsController < ApplicationController
       format.html { redirect_to accounts_url, notice: 'Account was successfully destroyed.' }
       format.json { head :no_content }
     end
-  end
+  end 
 
   def deposit
     account = Account.find(params[:id])
@@ -90,7 +90,6 @@ class AccountsController < ApplicationController
     recipient = Account.find_by_id(recipient_param[:recipient_id]) 
     
     if recipient.nil?
-      puts "entrou"
       flash[:danger] = 'Não foi possível localizar a conta informada. Favor reveja os dados informados'
       redirect_to account_path(current_user)
     else 
@@ -101,6 +100,15 @@ class AccountsController < ApplicationController
         flash[:danger] = 'Saldo insuficiente para a operação.'
         redirect_to account_path(current_user) 
       end
+    end
+  end
+
+  def close_account 
+    account = Account.find(params[:id])
+    return head :not_found unless account
+    if Account.close_account(account)
+      redirect_to account_path(current_user)  
+      flash[:success] = 'Sua conta foi desativada com sucesso!'
     end
   end
 
