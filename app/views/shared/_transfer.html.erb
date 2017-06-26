@@ -8,21 +8,21 @@
    
         </div>
         <div class="modal-body"> 
+          <div class="text-center"><label>Valor do depósito</label></div>
           <div class="form-group">
-            <center><label>Valor do depósito</label></center>
-             <%= text_field_tag :amount%> 
+             <%= text_field_tag :amount, "", class: "form-control" %> 
           </div> 
         </div>  
 
          <div class="modal-body"> 
+          <div class="text-center"><label>Número da conta(ID)</label></div>
           <div class="form-group">
-            <center><label>Número da conta(ID)</label></center>
-             <%= text_field_tag :recipient_id%> 
+             <%= text_field_tag :recipient_id, "", class: "form-control" %> 
           </div> 
         </div> 
 
         <div class="modal-footer"> 
-          <%= submit_tag "Transferir", class: "btn btn-primary" %>
+          <%= submit_tag "Transferir", class: "btn btn-success" %>
         </div>
       </div>
     </div> 

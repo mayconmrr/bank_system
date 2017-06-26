@@ -1,84 +1,74 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>User:</strong>
-  <%= @account.user.name %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @account.user.email %>
-</p>
- 
-<p>
-  <strong>Número da Agência:</strong>
-  <%= @account.agency_number %>
-</p>
-
-<p>
-  <strong>Número da Conta:</strong>
-  <%= @account.account_number %>
-</p>
+<div class="user_info">
+<fieldset>
+  <legend>Bem vindo <strong><%= @account.user.name %></strong></legend>
   
-<p>
-  <strong>Status:</strong>
-  <%= @account.status %>
-</p>
+  <div class="row-fluid">
+  
+      <span class="col-md-4">
+          <label><strong>Número da Agência:</strong></label><br>
+          <span><%= @account.agency_number %></span>
+  
+      </span>
+      <span class="col-md-4">
+          <label><strong>Número da Conta:</strong></label><br>
+          <span><%= @account.account_number %></span>
+      </span>
+      
+      <span class="col-md-4">
+        <label><strong>Saldo Atual:</strong></label><br>
+        <span>R$ <%= @account.balance %></span>
+      </span>
+      
+  </div>
+</fieldset>
+</div>
+<hr>
 
-<p>
-  <strong>Saldo atual:</strong>
-  <%= @account.balance %>
-</p>
+<p class="text-center"><i><strong>Selecione uma das opções a seguir:</strong></i></p>
 
 <% if @account.status == false %>
 
-<div class="well"> 
-  <div class="text-left">
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#balanceModal">Mostrar saldo</button> 
-      <%= render 'shared/balance' %> 
-    </form>
-  </div>
+<div id="options_content">
+  
+    <div class="child">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#balanceModal">Mostrar saldo</button> 
+        <%= render 'shared/balance' %> 
+      </form>
+    </div>
+    
+    <div class="child">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#depositModal">Depositar</button> 
+        <%= render 'shared/deposit' %> 
+      </form>
+    </div>
+    
+    <div class="child">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#withdrawModal">Sacar</button> 
+        <%= render 'shared/withdraw' %> 
+      </form>
+    </div>
+    
+    <div class="child">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#transferModal">Transferir</button> 
+        <%= render 'shared/transfer' %> 
+      </form>
+    </div> 
+    
+    <div class="child">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ratesModal">Consular Taxas</button> 
+        <%= render 'shared/transfer_rates' %> 
+      </form>
+    </div> 
+    
+    <div class="child">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#closeModal">Encerrar Conta</button> 
+        <%= render 'shared/account_close' %> 
+      </form>
+    </div> 
+  
 </div>
-
-<div class="well"> 
-  <div class="text-left">
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#depositModal">Depositar</button> 
-      <%= render 'shared/deposit' %> 
-    </form>
-  </div>
-</div>
-
-<div class="well"> 
-  <div class="text-left">
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#withdrawModal">Sacar</button> 
-      <%= render 'shared/withdraw' %> 
-    </form>
-  </div> 
-</div> 
-
-<div class="well"> 
-  <div class="text-left">
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#transferModal">Transferir</button> 
-      <%= render 'shared/transfer' %> 
-    </form>
-  </div> 
-</div> 
-
-<div class="well"> 
-  <div class="text-left">
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#ratesModal">Consular Taxas</button> 
-      <%= render 'shared/transfer_rates' %> 
-    </form>
-  </div> 
-</div> 
-
-<div class="well"> 
-  <div class="text-left">
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#closeModal">Encerrar Conta</button> 
-      <%= render 'shared/account_close' %> 
-    </form>
-  </div> 
-</div> 
 
 <% else %>
 

@@ -2,40 +2,38 @@
 <html>
   <head> 
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag    'application', media: 'all',
-                                              'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
  
   </head>
   <body> 
-   
-   <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
-     <% unless logged_in? %>  
-       <span class='nav navbar-brand logo'><%= link_to "Banco GRP", root_path, class: "nav-link" %></span> 
-     <% else %>
-       <span class='nav navbar-brand logo'><%= link_to "Banco GRP", user_path(current_user), class: "nav-link" %></span> 
-     <% end %>
-    <ul class="nav navbar-nav pull-right">
-
-      <% if logged_in? %>  
-        <li class="nav-item"><%= link_to "Minha Conta", account_path(current_user) %></li>
-        <li class="nav-item"><%= link_to "Meus Dados", edit_user_path(current_user) %></li>
-        <li class="nav-item"><%= link_to "Sair", logout_path, method: "delete" %></li> 
-      <% else %>
-        <li class="nav-item"><%= link_to "Cadastrar", signup_path, class: "nav-link" %></li>
-        <li class="nav-item"><%= link_to "Login", login_path, class: "nav-link" %></li>
-      <% end %>
-    </ul>
-  </nav>
-
-<div class="container">
+    
+    <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+      <div class="container">
+        <% unless logged_in? %>  
+          <span class='nav navbar-brand'><%= link_to "Banco GRP", root_path, class: "logo" %></span> 
+        <% else %>
+          <span class='nav navbar-brand'><%= link_to "Banco GRP", user_path(current_user), class: "logo" %></span> 
+        <% end %>
+        <ul class="nav navbar-nav pull-right">
+          <% if logged_in? %>  
+            <li class="nav-item"><%= link_to "Minha Conta", account_path(current_user) %></li>
+            <li class="nav-item"><%= link_to "Meus Dados", edit_user_path(current_user) %></li>
+            <li class="nav-item"><%= link_to "Sair", logout_path, method: "delete" %></li> 
+          <% else %>
+            <li class="nav-item"><%= link_to "Cadastrar", signup_path, class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to "Login", login_path, class: "nav-link" %></li>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+    
     <div class="container">
       <% flash.each do |message_type, message| %>
         <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
       <% end %>
       <%= yield %>  
-    </div> 
-</div>
+    </div>
 
   </body>
 </html>
