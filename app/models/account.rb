@@ -37,19 +37,19 @@ class Account < ApplicationRecord
 
   def self.transfer(account, recipient, amount)
     puts "Transfering #{amount} from account #{account.id} to account #{recipient.id}"
-    return false unless self.amount_valid?(amount)
+    return false unless self.amount_valid?(amount) 
+    tax = self.rate(amount)  
     ActiveRecord::Base.transaction do
-      if self.withdraw(account, amount)
+      if self.withdraw(account, (amount + tax))
         self.deposit(recipient, amount)
       end
     end
   end
-
+ 
   def self.close_account(account)
     account.status = 1
     account.save!
-  end
-
+  end 
 
   private
 
@@ -60,5 +60,23 @@ class Account < ApplicationRecord
     end
     return true
   end 
+
+  def self.rate(amount)
+    puts "chamou"
+    if (Time.now.hour > 9 && Time.now.hour < 18) && 
+       (Date.today.strftime("%A") != 'Saturday' && Date.today.strftime("%A") != 'Sunday') 
+      tax = 5.0
+      if amount > 1000
+        tax = tax + 10
+      end 
+    else
+      puts "entrou no else" 
+      tax = 7.0
+      if amount > 100
+        tax = tax + 10 
+      end
+      return tax
+    end 
+  end   
 
 end
