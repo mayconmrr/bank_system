@@ -23,12 +23,10 @@
       
   </div>
 </fieldset>
-<br><br>
 </div>
 <hr>
-<br><br>
 
-<p class="text-center"><i><strong>Selecione uma das opções a seguir:</strong></i></p>
+<p class="text-center"><i><u>Selecione uma das opções a seguir:</u></i></p>
 
 <% if @account.status == false %>
 
@@ -63,20 +61,21 @@
         <%= render 'shared/transfer_rates' %> 
       </form>
     </div> 
-
+    
     <div class="child">
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#statementModal">Extrato da Conta</button> 
         <%= render 'shared/statement' %> 
       </form>
-    </div>   
-</div> 
+    </div> 
+  
+</div>
 
    <div class="child">
       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#closeModal">Encerrar Conta</button> 
         <%= render 'shared/account_close' %> 
       </form>
     </div> 
-
+    
 <% else %>
 
   <h1> Conta desativada </h1>
