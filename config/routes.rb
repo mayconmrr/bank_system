@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :statements
   get 'static_pages/home'
 
   get    'signup'  => 'users#new'
@@ -8,6 +9,8 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
 
   resources :users 
+
+  resources :statements 
  
   resources :accounts do
   	member do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170621153404) do
+ActiveRecord::Schema.define(version: 20170626184029) do
 
   create_table "accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "agency_number"
@@ -21,6 +21,14 @@ ActiveRecord::Schema.define(version: 20170621153404) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_accounts_on_user_id"
+  end
+
+  create_table "statements", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.float "balance", limit: 24
+    t.bigint "account_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_statements_on_account_id"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -34,4 +42,5 @@ ActiveRecord::Schema.define(version: 20170621153404) do
   end
 
   add_foreign_key "accounts", "users"
+  add_foreign_key "statements", "accounts"
 end
