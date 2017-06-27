@@ -1,25 +1,30 @@
 <p id="notice"><%= notice %></p>
-<h1> Seja bem-vindo <%= @user.name %></h1>
+<h1> Seja bem-vindo <strong><%= @user.name %></strong></h1>
 
+<div class="panel panel-primary">
+  <div class="panel-heading">Detalhes</div>
+  <div class="panel-body">
+    <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Número da Agencia</th>
+          <th>Número da Conta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= @user.name %></td>
+          <td><%= @user.email %></td>
+          <td><%= @user.account.agency_number %></td>
+          <td><%= @user.account.account_number %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
+<hr>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-
-<p>
-  <strong>Número da Agencia:</strong>
-  <%= @user.account.agency_number %>
-</p>
-
-<p>
-  <strong>Número da Conta:</strong>
-  <%= @user.account.account_number %>
-</p>  
-
-<%= link_to 'Edit', edit_user_path(@user) %>
+<%= link_to 'Editar', edit_user_path(@user), class: "btn btn-default" %>
