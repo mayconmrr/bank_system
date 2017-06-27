@@ -6,19 +6,24 @@
   
   <div class="row-fluid">
   
-      <span class="col-md-4">
+      <span class="col-md-3">
           <label><strong>Número da Agência:</strong></label><br>
           <span><%= @account.agency_number %></span>
   
       </span>
-      <span class="col-md-4">
+      <span class="col-md-3">
           <label><strong>Número da Conta:</strong></label><br>
           <span><%= @account.account_number %></span>
       </span>
       
-      <span class="col-md-4">
+      <span class="col-md-3">
         <label><strong>Saldo Atual:</strong></label><br>
         <span>R$ <%= @account.balance %></span>
+      </span>
+
+      <span class="col-md-3">
+        <label><strong>Seu ID</strong></label><br>
+        <span><%= @account.id %></span>
       </span>
       
   </div>
