@@ -96,6 +96,7 @@ GEM
     nokogiri (1.8.0)
       mini_portile2 (~> 2.2.0)
     notifyjs_rails (0.0.2)
+    pg (0.21.0)
     puma (3.9.1)
     rack (2.0.3)
     rack-test (0.6.3)
@@ -212,6 +213,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.2)
   mysql2 (>= 0.3.18, < 0.5)
   notifyjs_rails
+  pg
   puma (~> 3.7)
   rails (~> 5.1.1)
   rails-assets-bootstrap (= 3.3.7)!
