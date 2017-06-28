@@ -1,9 +1,0 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  balance: 1.5
-  account: one
-
-two:
-  balance: 1.5
-  account: two

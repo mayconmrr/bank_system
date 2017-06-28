@@ -2,7 +2,7 @@ class Account < ApplicationRecord
   belongs_to :user 
   has_many :statements
   before_create :account_number_gen, :agency_number_gen
-  after_save :statement_register
+  before_save :statement_register
  
   def account_number_gen
     account = Random.new
@@ -55,7 +55,6 @@ class Account < ApplicationRecord
 
   def statement_register
     statement = Statement.create(:account_id => self.id, :balance => self.balance) 
-    statement.save!
   end
 
   private
