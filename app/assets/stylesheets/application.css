@@ -60,6 +60,10 @@ body{
   height: 100%;/*100px;*/
 }
 
+.btn-success{
+  width: 100%;
+}
+
 .logo{
   font-family: "Impact";
   color: #ffffff;
