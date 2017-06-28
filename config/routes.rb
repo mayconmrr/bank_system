@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  
-  resources :statements
+   
   get 'static_pages/home'
 
   get    'signup'  => 'users#new'
@@ -10,15 +9,16 @@ Rails.application.routes.draw do
 
   resources :users 
 
-  resources :statements 
+  resources :statements
+  post 'statements/report' => 'statements#report'
  
   resources :accounts do
-  	member do
+    member do
       post :deposit 
       post :withdraw
       post :transfer
       post :close_account
-  	end
+    end
   end
 
   root 'static_pages#home' 

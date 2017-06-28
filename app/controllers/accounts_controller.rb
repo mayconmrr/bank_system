@@ -113,6 +113,9 @@ class AccountsController < ApplicationController
     end
   end
 
+  def report
+    puts "controller report"
+  end 
   
   private
     # Use callbacks to share common setup or constraints between actions.
