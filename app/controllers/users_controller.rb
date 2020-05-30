@@ -1,7 +1,9 @@
-class UsersController < ApplicationController 
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :logged_in_user, except: [:new, :create] 
-  before_action :correct_user,   only: [:show, :edit, :update]
+# frozen_string_literal: true
+
+class UsersController < ApplicationController
+  before_action :set_user, only: %i[show edit update destroy]
+  before_action :logged_in_user, except: %i[new create]
+  before_action :correct_user,   only: %i[show edit update]
 
   # GET /users
   # GET /users.json
@@ -21,8 +23,7 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /users
   # POST /users.json
@@ -46,7 +47,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        flash[:success] = 'Dados atualizados com sucesso!' 
+        flash[:success] = 'Dados atualizados com sucesso!'
         format.html { redirect_to @user }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -67,18 +68,19 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end 
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(:name, :email, :gender, :password, :password_confirmation)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
 
-    def correct_user
-      @user = User.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def user_params
+    params.require(:user).permit(:name, :email, :gender, :password, :password_confirmation)
+  end
+
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to(root_url) unless current_user?(@user)
+  end
 end

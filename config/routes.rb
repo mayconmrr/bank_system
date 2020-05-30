@@ -1,5 +1,6 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-   
   get 'static_pages/home'
 
   get    'signup'  => 'users#new'
@@ -7,20 +8,19 @@ Rails.application.routes.draw do
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
 
-  resources :users 
+  resources :users
 
   resources :statements
   post 'statements/report' => 'statements#report'
- 
+
   resources :accounts do
     member do
-      post :deposit 
+      post :deposit
       post :withdraw
       post :transfer
       post :close_account
     end
   end
 
-  root 'static_pages#home' 
-
+  root 'static_pages#home'
 end

@@ -1,20 +1,21 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
-	has_one :account
-	before_save { self.email = email.downcase }
+  has_one :account
+  before_save { self.email = email.downcase }
   validates :name, presence: true, length: { maximum: 50 }
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   has_secure_password
 
   after_create :init_account
-  
-  GENDER_TYPES = ["Masculino", "Feminino"]
+
+  GENDER_TYPES = %w[Masculino Feminino].freeze
 
   def init_account
-    account = Account.create(:user_id => self.id)
+    account = Account.create(user_id: id)
     account.save!
   end
-
 end
