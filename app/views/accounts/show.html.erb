@@ -1,19 +1,17 @@
 <p id="notice"><%= notice %></p>
 
 <div class="user_info">
-<fieldset>
-  <legend>Bem vindo <strong><%= @account.user.name %></strong></legend>
-
-  <div class="row-fluid">
-
+  <fieldset>
+    <legend>Bem vindo <strong><%= @account.user.name %></strong></legend>
+    <div class="row-fluid">
       <span class="col-md-3">
-          <label><strong>Número da Agência:</strong></label><br>
-          <span><%= @account.agency_number %></span>
-
+        <label><strong>Número da Agência:</strong></label><br>
+        <span><%= @account.agency_number %></span>
       </span>
+
       <span class="col-md-3">
-          <label><strong>Número da Conta:</strong></label><br>
-          <span><%= @account.account_number %></span>
+        <label><strong>Número da Conta:</strong></label><br>
+        <span><%= @account.account_number %></span>
       </span>
 
       <span class="col-md-3">
@@ -25,54 +23,44 @@
         <label><strong>Seu ID</strong></label><br>
         <span><%= @account.id %></span>
       </span>
-
-  </div>
-</fieldset>
+    </div>
+  </fieldset>
 </div>
 <hr>
 
 <p class="text-center"><i><u>Selecione uma das opções a seguir:</u></i></p>
-
 <% if @account.status == false %>
-
   <div id="options_content">
+    <div class="child">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#balanceModal">Mostrar saldo</button>
+        <%= render 'shared/balance' %>
+    </div>
 
-      <div class="child">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#balanceModal">Mostrar saldo</button>
-          <%= render 'shared/balance' %>
-      </div>
+    <div class="child">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#depositModal">Depositar</button>
+        <%= render 'shared/deposit' %>
+    </div>
 
-      <div class="child">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#depositModal">Depositar</button>
-          <%= render 'shared/deposit' %>
-        </form>
-      </div>
+    <div class="child">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#withdrawModal">Sacar</button>
+        <%= render 'shared/withdraw' %>
+    </div>
 
-      <div class="child">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#withdrawModal">Sacar</button>
-          <%= render 'shared/withdraw' %>
-        </form>
-      </div>
+    <div class="child">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#transferModal">Transferir</button>
+        <%= render 'shared/transfer' %>
+    </div>
 
-      <div class="child">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#transferModal">Transferir</button>
-          <%= render 'shared/transfer' %>
-        </form>
-      </div>
+    <div class="child">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ratesModal">Consular Taxas</button>
+        <%= render 'shared/transfer_rates' %>
+    </div>
 
-      <div class="child">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ratesModal">Consular Taxas</button>
-          <%= render 'shared/transfer_rates' %>
-      </div>
-
-      <div class="child">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#statementModal">Extrato da Conta</button>
-          <%= render 'shared/statement' %>
-          </form>
-      </div>
-
+    <div class="child">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#statementModal">Extrato da Conta</button>
+        <%= render 'shared/statement' %>
+    </div>
   </div>
-
   <hr>
 
   <div class="text-left">
@@ -86,11 +74,10 @@
   <h1> Conta desativada </h1>
 
   <div class="well">
-  <div class="text-left">
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#activateModal">Reativar Conta</button>
-      <%= render 'shared/activate_account' %>
-    </form>
+    <div class="text-left">
+      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#activateModal">Reativar Conta</button>
+        <%= render 'shared/activate_account' %>
+      </form>
+    </div>
   </div>
-</div>
-
 <% end %>

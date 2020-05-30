@@ -1,25 +1,24 @@
-<%= form_tag({controller: "accounts", action: "close_account"}, method: "post") %>
-
-<div class="modal fade" id="closeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<%= form_tag({controller: "accounts", action: "close_account"}, method: "post") do %>
+  <div class="modal fade" id="closeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-   
           <center><h3> Atenção!</h3></center>
-           <br>
-           <center><h4>Esta ação resultará no desativamento definitivo da sua conta.</h4></center>
+          <br>
+          <center><h4>Esta ação resultará no desativamento definitivo da sua conta.</h4></center>
         </div>
 
-        <div class="modal-body"> 
+        <div class="modal-body">
           <div class="form-group">
-            <center><label>Encerramento de Conta</label></center> 
-          </div>  
+            <center><label>Encerramento de Conta</label></center>
+          </div>
 
-        <div class="modal-footer">  
-          <%= submit_tag "Desativar conta", class: "btn btn-danger", data: { confirm: "Tem certeza que deseja desativar sua conta ?"} %>
+          <div class="modal-footer">
+            <%= submit_tag "Desativar conta", class: "btn btn-danger", data: { confirm: "Tem certeza que deseja desativar sua conta ?"} %>
+          </div>
         </div>
       </div>
-    </div> 
+    </div>
   </div>
-</div>
+<% end %>

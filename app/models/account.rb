@@ -20,7 +20,6 @@ class Account < ApplicationRecord
   end
 
   def self.deposit(account, amount)
-    puts "Depositing #{amount} on account #{account.id}"
     return false unless amount_valid?(amount)
 
     account.balance = (account.balance += amount).round(2)
@@ -28,21 +27,14 @@ class Account < ApplicationRecord
   end
 
   def self.withdraw(account, amount)
-    puts "Withdrawing #{amount} on account #{account.id}"
     return false unless amount_valid?(amount)
 
     # return false unless self.balance_valid?(amount)
     account.balance = (account.balance -= amount).round(2)
-    if account.balance > 0
-      account.save!
-    else
-      puts 'Saldo insuficiente'
-      false
-    end
+    account.balance > 0 ? account.save! : false
   end
 
   def self.transfer(account, recipient, amount)
-    puts "Transfering #{amount} from account #{account.id} to account #{recipient.id}"
     return false unless amount_valid?(amount)
 
     tax = rate(amount)
@@ -57,12 +49,11 @@ class Account < ApplicationRecord
   end
 
   def statement_register
-    statement = Statement.create(account_id: id, balance: balance)
+    Statement.create(account_id: id, balance: balance)
   end
 
   def self.amount_valid?(amount)
     if amount <= 0
-      puts 'Depósito deve ser maior que 0.'
       return false
     end
     true
@@ -75,7 +66,6 @@ class Account < ApplicationRecord
       tax += 10.0 if amount > 1000
       return tax
     else
-      puts 'entrou no else'
       tax = 7.0
       tax += 10.0 if amount > 100
       return tax
