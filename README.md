@@ -11,11 +11,11 @@ Rails 5.1.2
 ## System dependencies
 Any *nix plataform
 
-## Setup 
-Run in your console: 
+## Setup
+Run in your console:
 ```
 bin/setup
-``` 
+```
 ## User Create
 Click in the "Nova Conta!" button and fill all the fields.
 
