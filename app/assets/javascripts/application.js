@@ -10,12 +10,12 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery 
+//= require jquery
 //= require bootstrap
 //= require turbolinks
-//= require_tree . 
-//= require notifyjs_rails 
-//= require jquery_ujs 
+//= require_tree .
+//= require notifyjs_rails
+//= require jquery_ujs
 //= require bootstrap.growl
 
 /* Spin */
@@ -26,8 +26,6 @@ $(document).ready(function() {
       $('#global-spin').fadeIn('slow');
     })
     .ajaxStop(function () {
-    	$('#global-spin').fadeOut('slow');
+      $('#global-spin').fadeOut('slow');
     });
 });
-	 
-
