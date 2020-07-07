@@ -66,18 +66,18 @@ class AccountsController < ApplicationController
     account = Account.find(params[:id])
     return head :not_found unless account
 
-    recipient_param = params.permit(:recipient_id)
-    recipient = Account.find_by_id(recipient_param[:recipient_id])
-
+    recipient = Account.find_by_id(params.permit(:recipient_id))
     if recipient.nil?
+      redirect_to account_path(current_user)
       flash[:danger] = 'Não foi possível localizar a conta informada. Favor reveja os dados informados'
-    else
-      if Account.transfer(account, recipient, amount)
-        flash[:success] = 'Transferência efetuada com sucesso'
-      else
-        flash[:danger] = 'Saldo insuficiente para a operação.'
-      end
     end
+
+    if account.transfer(recipient, amount)
+      flash[:success] = 'Transferência efetuada com sucesso'
+    else
+      flash[:danger] = 'Saldo insuficiente para a operação.'
+    end
+
     redirect_to account_path(current_user)
   end
 
