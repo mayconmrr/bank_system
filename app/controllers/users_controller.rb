@@ -21,8 +21,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:success] = 'Cadastro efetado com sucesso. Faça o login para continuar.'
-      redirect_to login_path
+      flash[:success] = 'Cadastro efetuado com sucesso. Seja bem-vindo!'
+      log_in @user
+      redirect_back_or @user
     else
       render :new
     end
