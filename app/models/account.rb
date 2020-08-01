@@ -23,18 +23,18 @@ class Account < ApplicationRecord
     self.agency_number = new_ag_id
   end
 
-  def self.deposit(account, amount)
+  def deposit(amount)
     return false unless amount_valid?(amount)
 
-    account.balance = (account.balance += amount).round(2)
-    account.save!
+    self.balance = (self.balance += amount).round(2)
+    save!
   end
 
   def withdraw(amount)
     return false unless amount_valid?(amount)
 
     self.balance = (self.balance -= amount).round(2)
-    self.balance.positive? ? self.save! : false
+    save unless balance.negative?
   end
 
   def transfer(recipient, amount)
@@ -51,14 +51,6 @@ class Account < ApplicationRecord
     account.save!
   end
 
-  def statement_register
-    Statement.create(account_id: id, balance: balance)
-  end
-
-  def self.amount_valid?(amount)
-    amount.positive?
-  end
-
   def self.rate(amount)
     tax = normal_business_hours? ? WEEK_BUSSINES_TAX : WEEKEND_AND_EXTRA_HOURS_TAX
     tax += LIMIT_AMOUNT_TAX if amount > 1000
@@ -66,6 +58,14 @@ class Account < ApplicationRecord
   end
 
   private
+
+  def statement_register
+    Statement.create(account_id: id, balance: balance)
+  end
+
+  def amount_valid?(amount)
+    amount.positive?
+  end
 
   def normal_business_hours?
     business_hours? && week_days?

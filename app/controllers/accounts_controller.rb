@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 class AccountsController < ApplicationController
-  before_action :set_account, only: %i[show edit update destroy]
+  before_action :set_account, only: %i[show edit update destroy deposit withdraw]
   before_action :logged_in_user, except: %i[new create]
-  before_action :correct_account, only: %i[show edit update]
 
   def show
     @account = Account.find(params[:id])
@@ -39,10 +38,7 @@ class AccountsController < ApplicationController
   end
 
   def deposit
-    account = Account.find(params[:id])
-    return head :not_found unless account
-
-    if Account.deposit(account, amount)
+    if @account.deposit(amount)
       flash[:success] = 'Depósito efetuado com sucesso!'
     else
       flash[:danger] = 'Valor digitado não é válido. Depósito negado.'
@@ -51,10 +47,7 @@ class AccountsController < ApplicationController
   end
 
   def withdraw
-    account = Account.find(params[:id])
-    return head :not_found unless account
-
-    if Account.withdraw(account, amount)
+    if @account.withdraw(amount)
       flash[:success] = 'Saque efetuado com sucesso'
     else
       flash[:danger] = 'Saldo insuficiente para a operação.'
@@ -104,10 +97,5 @@ class AccountsController < ApplicationController
   def amount
     param = params.permit(:amount)
     param[:amount].to_f
-  end
-
-  def correct_account
-    @account = Account.find(params[:id])
-    redirect_to(root_url) unless current_user?(@account.user)
   end
 end
