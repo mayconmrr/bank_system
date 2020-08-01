@@ -33,31 +33,42 @@ class Account < ApplicationRecord
   def withdraw(amount)
     return false unless amount_valid?(amount)
 
-    self.balance = (self.balance -= amount).round(2)
+    self.balance - amount.round(2)
     save unless balance.negative?
   end
 
-  def transfer(recipient, amount)
+  def transfer(recipient_id, amount)
     return false unless amount_valid?(amount)
 
-    tax = rate(amount)
-    ActiveRecord::Base.transaction do
-      deposit(recipient, amount) if withdraw(self, (amount + tax))
-    end
+    recipient = Account.find_by(id: recipient_id)
+    tax = amount + rate(amount)
+    execute_transfer!(recipient, amount, tax) if enough_funds?(tax)
   end
 
-  def self.close_account(account)
-    account.status = 1
-    account.save!
+  def close_account
+    self.status = 1
+    save!
   end
 
-  def self.rate(amount)
+  def rate(amount)
     tax = normal_business_hours? ? WEEK_BUSSINES_TAX : WEEKEND_AND_EXTRA_HOURS_TAX
     tax += LIMIT_AMOUNT_TAX if amount > 1000
     tax
   end
 
   private
+
+  def execute_transfer!(recipient, amount, tax)
+    ActiveRecord::Base.transaction do
+      withdraw(tax)
+      recipient.deposit(amount)
+    end
+  end
+
+  def enough_funds?(amount)
+    balance = (self.balance -= amount).round(2)
+    !balance.negative?
+  end
 
   def statement_register
     Statement.create(account_id: id, balance: balance)

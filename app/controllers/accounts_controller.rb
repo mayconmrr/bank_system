@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class AccountsController < ApplicationController
-  before_action :set_account, only: %i[show edit update destroy deposit withdraw]
+  before_action :set_account, only: %i[show edit update destroy deposit withdraw close_account transfer]
   before_action :logged_in_user, except: %i[new create]
+  before_action :find_recipient, only: :transfer
 
   def show
     @account = Account.find(params[:id])
@@ -56,16 +57,7 @@ class AccountsController < ApplicationController
   end
 
   def transfer
-    account = Account.find(params[:id])
-    return head :not_found unless account
-
-    recipient = Account.find_by_id(params.permit(:recipient_id))
-    if recipient.nil?
-      redirect_to account_path(current_user)
-      flash[:danger] = 'Não foi possível localizar a conta informada. Favor reveja os dados informados'
-    end
-
-    if account.transfer(recipient, amount)
+    if @account.transfer(@recipient.id, amount)
       flash[:success] = 'Transferência efetuada com sucesso'
     else
       flash[:danger] = 'Saldo insuficiente para a operação.'
@@ -75,13 +67,9 @@ class AccountsController < ApplicationController
   end
 
   def close_account
-    account = Account.find(params[:id])
-    return head :not_found unless account
-
-    if Account.close_account(account)
-      redirect_to account_path(current_user)
-      flash[:success] = 'Sua conta foi desativada com sucesso!'
-    end
+    @account.close_account
+    redirect_to account_path(current_user)
+    flash[:success] = 'Sua conta foi desativada com sucesso!'
   end
 
   private
@@ -97,5 +85,13 @@ class AccountsController < ApplicationController
   def amount
     param = params.permit(:amount)
     param[:amount].to_f
+  end
+
+  def find_recipient
+    @recipient = Account.find(params[:recipient_id])
+    if @recipient.nil?
+      redirect_to account_path(current_user)
+      flash[:danger] = 'Não foi possível localizar a conta informada. Favor reveja os dados informados'
+    end
   end
 end
