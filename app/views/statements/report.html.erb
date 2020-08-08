@@ -2,10 +2,8 @@
     <h2>Extrato</h2>
 </div>
 
-<% i = 0 %>
 <ul class="list-group">
-  <% @statements.each do |f| %>
-    <% i += 1 %>
-    <li class="list-group-item"><%= f.created_at.strftime("%d/%m/%Y - %H:%M:%Sh") %> - Saldo: R$<%= f.balance %><span class="badge"><%= i %></span></li>
+  <% @statements.each.with_index(1) do |f, i| %>
+    <li class="list-group-item"><%= f.created_at.strftime("%d/%m/%Y - %H:%M:%S") %> - Saldo: R$<%= f.balance %><span class="badge"><%= i %></span></li>
   <% end %>
 </ul>

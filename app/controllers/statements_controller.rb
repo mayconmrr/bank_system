@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
 class StatementsController < ApplicationController
-  before_action :set_statement, only: %i[show edit update destroy]
+  before_action :set_account, only: :report
 
   def report
-    @statements = Statement.get_report(statement_params[:date])
+    @statements = Statement.get_report(@account, statement_params[:date])
   end
 
   private
 
-  def set_statement
-    @statement = Statement.find(params[:id])
+  def set_account
+    @account = Account.find(statement_params[:account_id])
   end
 
   def statement_params
-    params.require(:statement).permit(:balance, :account_id, :date)
+    params.permit(:balance, :account_id, date: [:begin , :end])
   end
 end
