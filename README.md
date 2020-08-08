@@ -1,12 +1,21 @@
-# Banco GRP
+# MRR Bank
 This is an app to simulate a bank system.
 You can create and close your account, make deposits in your own account, make withdrawals and to transfer money (there will be rates depending on the day of the week and the time of the day) to another account.
 
+# App Preview
+Home Screen
+![](app/assets/images/readme/home_screen.png)
+
+Statement Session
+![](app/assets/images/readme/statement_modal.png)
+- - - - -
+![](app/assets/images/readme/statement_page.png)
+
 ## Ruby version
-ruby 2.4.0
+ruby 2.5.1
 
 ## Rails version
-Rails 5.1.2
+Rails 6.0
 
 ## System dependencies
 Any *nix plataform
