@@ -14,6 +14,6 @@ class StatementsController < ApplicationController
   end
 
   def statement_params
-    params.permit(:balance, :account_id, date: [:begin , :end])
+    params.permit(:balance, :account_id, date: %i[begin end])
   end
 end

@@ -47,13 +47,13 @@ class Account < ApplicationRecord
     save!
   end
 
-  private
-
   def self.rate(amount)
     tax = Account.normal_business_hours? ? WEEK_BUSSINES_TAX : WEEKEND_AND_EXTRA_HOURS_TAX
     tax += LIMIT_AMOUNT_TAX if amount > 1000
     tax
   end
+
+  private
 
   def statement_register
     Statement.create(account_id: id, balance: balance)

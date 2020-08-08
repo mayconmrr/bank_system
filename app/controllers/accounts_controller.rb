@@ -102,11 +102,9 @@ class AccountsController < ApplicationController
   end
 
   def find_recipient
-    begin
-      @recipient = Account.find(params[:recipient_id])
-    rescue ActiveRecord::RecordNotFound
-      redirect_to account_path(current_user)
-      flash[:danger] = 'Não foi possível localizar a conta informada. Favor reveja os dados informados.'
-    end
+    @recipient = Account.find(params[:recipient_id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to account_path(current_user)
+    flash[:danger] = 'Não foi possível localizar a conta informada. Favor reveja os dados informados.'
   end
 end
