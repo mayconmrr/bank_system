@@ -35,6 +35,10 @@ body{
   flex-wrap: wrap;
 }
 
+.alert{
+  text-align: center;
+}
+
 #home_options{
 
   width: 100%;

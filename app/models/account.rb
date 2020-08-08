@@ -33,7 +33,7 @@ class Account < ApplicationRecord
   def withdraw(amount)
     return false unless amount_valid?(amount)
 
-    self.balance - amount.round(2)
+    self.balance = (balance - amount.round(2))
     save unless balance.negative?
   end
 
