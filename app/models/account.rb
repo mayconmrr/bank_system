@@ -33,16 +33,13 @@ class Account < ApplicationRecord
   def withdraw(amount)
     return false unless amount_valid?(amount)
 
-    self.balance = (balance - amount.round(2))
+    self.balance = balance - amount.round(2)
     save unless balance.negative?
   end
 
-  def transfer(recipient_id, amount)
-    return false unless amount_valid?(amount)
-
-    recipient = Account.find_by(id: recipient_id)
-    tax = amount + rate(amount)
-    execute_transfer!(recipient, amount, tax) if enough_funds?(tax)
+  def enough_funds?(amount)
+    future_balance = balance - amount.round(2)
+    !future_balance.negative?
   end
 
   def close_account
@@ -50,24 +47,12 @@ class Account < ApplicationRecord
     save!
   end
 
-  def rate(amount)
-    tax = normal_business_hours? ? WEEK_BUSSINES_TAX : WEEKEND_AND_EXTRA_HOURS_TAX
-    tax += LIMIT_AMOUNT_TAX if amount > 1000
-    tax
-  end
-
   private
 
-  def execute_transfer!(recipient, amount, tax)
-    ActiveRecord::Base.transaction do
-      withdraw(tax)
-      recipient.deposit(amount)
-    end
-  end
-
-  def enough_funds?(amount)
-    balance = (self.balance -= amount).round(2)
-    !balance.negative?
+  def self.rate(amount)
+    tax = Account.normal_business_hours? ? WEEK_BUSSINES_TAX : WEEKEND_AND_EXTRA_HOURS_TAX
+    tax += LIMIT_AMOUNT_TAX if amount > 1000
+    tax
   end
 
   def statement_register
@@ -78,15 +63,15 @@ class Account < ApplicationRecord
     amount.positive?
   end
 
-  def normal_business_hours?
-    business_hours? && week_days?
+  def self.normal_business_hours?
+    Account.business_hours? && Account.week_days?
   end
 
-  def business_hours?
+  def self.business_hours?
     Time.now.hour > 9 && Time.now.hour < 18
   end
 
-  def week_days?
+  def self.week_days?
     Date.today.strftime('%A') != 'Saturday' && Date.today.strftime('%A') != 'Sunday'
   end
 end
