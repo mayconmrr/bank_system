@@ -11,7 +11,13 @@ RSpec.describe 'Users', type: :request do
   end
 
   describe 'POST /users' do
-    let(:attributes) { { name: 'Jonh', email: 'exemplo1@ex1.com', gender: 'Masculino', password: '123123', password_confirmation: '123123' } }
+    let(:attributes) do
+      { name: 'Jonh',
+        email: 'exemplo1@ex1.com',
+        gender: 'Masculino',
+        password: '123123',
+        password_confirmation: '123123' }
+    end
     let(:params) { { format: :json, user: attributes } }
 
     it 'creates the user' do
@@ -24,7 +30,6 @@ RSpec.describe 'Users', type: :request do
       expect(body['email']).to eq 'exemplo1@ex1.com'
       expect(body['gender']).to eq 'Masculino'
       expect(body['password']).to eq '123123'
-      expect(body['password_confirmation']).to eq '123123'
     end
   end
 end

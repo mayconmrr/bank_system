@@ -53,16 +53,6 @@ class Account < ApplicationRecord
     tax
   end
 
-  private
-
-  def statement_register
-    Statement.create(account_id: id, balance: balance)
-  end
-
-  def amount_valid?(amount)
-    amount.positive?
-  end
-
   def self.normal_business_hours?
     Account.business_hours? && Account.week_days?
   end
@@ -73,5 +63,15 @@ class Account < ApplicationRecord
 
   def self.week_days?
     Date.today.strftime('%A') != 'Saturday' && Date.today.strftime('%A') != 'Sunday'
+  end
+
+  private
+
+  def statement_register
+    Statement.create(account_id: id, balance: balance)
+  end
+
+  def amount_valid?(amount)
+    amount.positive?
   end
 end
