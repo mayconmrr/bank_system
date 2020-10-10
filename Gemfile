@@ -11,10 +11,11 @@ gem 'rails', '~> 6.0'
 
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass'
-gem 'coffee-rails', '~> 4.2'
-gem 'jbuilder', '~> 2.5'
+gem 'coffee-rails', '~> 5.0.0'
+gem 'jbuilder', github: 'rails/jbuilder', branch: 'master'
 gem 'jquery-rails'
 gem 'notifyjs_rails'
+gem 'pg'
 gem 'puma', '~> 3.7'
 gem 'rails-i18n'
 gem 'sass-rails', '~> 5.0'
@@ -29,8 +30,7 @@ end
 
 group :development, :test do
   gem 'byebug', platform: :mri
-  gem 'factory_girl_rails'
-  gem 'mysql2', '>= 0.3.18', '< 0.5'
+  gem 'factory_bot_rails'
   gem 'rails-controller-testing'
   gem 'rspec-rails'
   gem 'rubocop', require: false
@@ -46,10 +46,4 @@ end
 
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
-end
-
-group :production do
-  # Heroku
-  gem 'pg'
-  gem 'rails_12factor'
 end
