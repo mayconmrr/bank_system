@@ -11,25 +11,20 @@ RSpec.describe 'Users', type: :request do
   end
 
   describe 'POST /users' do
-    let(:attributes) do
+    let(:user_attributes) do
       { name: 'Jonh',
         email: 'exemplo1@ex1.com',
         gender: 'Masculino',
         password: '123123',
         password_confirmation: '123123' }
     end
-    let(:params) { { format: :json, user: attributes } }
 
     it 'creates the user' do
-      post '/survivors', params
+      post '/users', params: { user: user_attributes }
 
-      expect(response.status).to eq 201
-
-      body = JSON.parse(response.body)
-      expect(body['name']).to eq 'Jonh'
-      expect(body['email']).to eq 'exemplo1@ex1.com'
-      expect(body['gender']).to eq 'Masculino'
-      expect(body['password']).to eq '123123'
+      expect(response.status).to eq(302)
+      user_id = User.find_by(email: 'exemplo1@ex1.com').id
+      expect(request.session[:user_id] == user_id).to be(true)
     end
   end
 end

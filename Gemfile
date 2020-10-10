@@ -31,6 +31,7 @@ end
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'factory_bot_rails'
+  gem 'pry-byebug'
   gem 'rails-controller-testing'
   gem 'rspec-rails'
   gem 'rubocop', require: false
