@@ -7,7 +7,6 @@ GIT
       activesupport (>= 5.0.0)
 
 GEM
-  remote: https://rubygems.org/
   remote: https://rails-assets.org/
   specs:
     actioncable (6.0.3.4)
@@ -116,11 +115,8 @@ GEM
     method_source (0.8.2)
     mimemagic (0.3.5)
     mini_mime (1.0.2)
-    mini_portile2 (2.4.0)
     minitest (5.14.2)
     nio4r (2.5.4)
-    nokogiri (1.10.10)
-      mini_portile2 (~> 2.4.0)
     notifyjs_rails (0.0.2)
     parallel (1.19.2)
     parser (2.7.2.0)
@@ -262,6 +258,15 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     zeitwerk (2.4.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    mini_portile2 (2.6.1)
+    nokogiri (1.12.5)
+      mini_portile2 (~> 2.6.1)
+      racc (~> 1.4)
+    racc (1.5.2)
 
 PLATFORMS
   ruby
